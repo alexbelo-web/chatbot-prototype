@@ -43,7 +43,9 @@
       const msg = document.createElement('div');
       msg.classList.add('message');
       msg.classList.add(sender);
-      msg.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      msg.innerHTML = text
+  .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+  .replace(/\*(.*?)\*/g, '<em>$1</em>');
       chatBox.appendChild(msg);
       chatBox.scrollTop = chatBox.scrollHeight;
       return msg;
