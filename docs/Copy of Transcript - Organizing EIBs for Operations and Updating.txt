@@ -1,0 +1,111 @@
+[Kristina Kelpe] 09:59:58
+I'm going to talk about how to organize integrations in Workday.
+
+[Kristina Kelpe] 10:00:05
+So specifically is around EIBs is my focus here. When you create an EIB, it's hard to find it oftentimes. And it's under oftentimes under You go to create EIB in order to create one initially.
+
+[Kristina Kelpe] 10:00:27
+Doesn't give you an option to look up and see what's already been created.
+
+[Kristina Kelpe] 10:00:33
+Already, so before creating an EIB, I recommend that you go to the task view integration system and take a look at what's been created.
+
+[Kristina Kelpe] 10:00:44
+Now, a difficult piece is I wish it was a little bit easier via this way to find things. We'll talk in a minute about a report that can be built.
+
+[Kristina Kelpe] 10:00:54
+That would make it easier to find all your integrations. And so I would recommend having a custom report. But until that's built.
+
+[Kristina Kelpe] 10:01:02
+You can also go to this view integration system. Let's talk about this here. So you can On this buy template category, I wish there was a section called eib Unfortunately, Workday just has it in this section called like integration, but you can start to see everything that's been built in here. You'll see there's a lot of things with EIB.
+
+[Kristina Kelpe] 10:01:28
+That are in here outside of that. If you went to, for example, the cloud connect for student records. You do see things that are delivered by Workday. They're called like technically integrations. Really, I'd say they're reports that you're just going to export.
+
+[Kristina Kelpe] 10:01:45
+But it kind of uses the requirements there and is maintained by Workday.
+
+[Kristina Kelpe] 10:01:49
+So this is where you can see things. So let's go pick one of the Let's pick on this one here. So when you're in an integration system, which is that EIB, a way to load things in an Excel. What you can do here is, and you often, it's a little bit tricky to do this when you
+
+[Kristina Kelpe] 10:02:10
+When the process of building but once you've built an EIB, to go back into it immediately and look to one if you need to rename it, anything.
+
+[Kristina Kelpe] 10:02:22
+I would recommend the biggest thing is you don't necessarily need to have things like initials. I know that could be something I'm going to show what you can do again.
+
+[Kristina Kelpe] 10:02:30
+It's all about having this custom report that you really need to be able to find things later on.
+
+[Kristina Kelpe] 10:02:35
+And I'm going to switch and show that real quick. So if you… Let's see here. Let's go back to it.
+
+[Kristina Kelpe] 10:02:45
+Lost my screen. I've added a new page here. So this is a report that's being shown.
+
+[Kristina Kelpe] 10:02:53
+To pull in anything that has an integration tag of registrar on it.
+
+[Kristina Kelpe] 10:03:00
+And you see how you can pull in the comments and the contacts. This is way better than going to view integration system.
+
+[Kristina Kelpe] 10:03:07
+Because in student EIBs are used pretty heavily and often by kind of like power users in the system.
+
+[Kristina Kelpe] 10:03:14
+Having a way that they can see all of their EIBs in one place and organized.
+
+[Kristina Kelpe] 10:03:20
+So that you're not curry creating new ones is a great thing to have here.
+
+[Kristina Kelpe] 10:03:26
+So when you're in the edit here, I'd recommend putting in your description in the comment.
+
+[Kristina Kelpe] 10:03:33
+And then having your tags. Now, when you're in here, you can't add additional tags.
+
+[Kristina Kelpe] 10:03:39
+But what you can do is it's really easy to create them. It just typically Workday allows you to add a tag within a task.
+
+[Kristina Kelpe] 10:03:47
+Here you do have to go to a separate task of maintain integration.
+
+[Kristina Kelpe] 10:03:54
+Tags and you can add them here. So it is something to consider depending on who's using this maybe If multiple people are using this, then it could be something like student colon academic foundation. Of course, that one may be more self-explanatory, but
+
+[Kristina Kelpe] 10:04:11
+Something like recruiting, which could be used for admissions or could be used for HCM. Maybe that one at least has something in front, but you could think of some naming conventions. There unfortunately isn't like categories you can associate with it.
+
+[Kristina Kelpe] 10:04:24
+But putting in your tags here, which again just will make it easier to be able to find things Later on, I like to say to go by topic. I also like to say, you know, it can be both registrar and grading because sometimes you're going to want to search at the higher level and sometimes lower level. And I think it's fine. It doesn't have to be registrar colon grading. I think having them separate and really clean
+
+[Kristina Kelpe] 10:04:48
+So that the more it's easier to just find these and be able to see all the different attributes of this here. I also really love being able to put in a contact. And so all you have to do is go in here and add and you can describe, you know, is this the owner? Is this the person running it? And then you can just look up anyone at
+
+[Kristina Kelpe] 10:05:12
+I'm not sure if it goes to anyone, but I'm like, you can put the person on here, I think, associated with this. Maybe one person is the IT contact. One person is going to be the functional contact.
+
+[Kristina Kelpe] 10:05:23
+But putting this in here and then being able to have your report.
+
+[Kristina Kelpe] 10:05:26
+So with this report, I actually am also going to see if we can add in the version of this EIB, which I think would be super helpful.
+
+[Kristina Kelpe] 10:05:41
+Oh my goodness.
+
+[Kristina Kelpe] 10:05:47
+I am not. Oh, I think… That might be what we need. Let's take a look.
+
+[Kristina Kelpe] 10:05:54
+Because these EIVs after releases will get updated, it's really important to know which version that you're on.
+
+[Kristina Kelpe] 10:06:02
+And making sure you're on the most updated one. So some of these could be on a 4.41 And then you know, okay, these need to be updated. So now that's added in here and you can kind of keep track of that. I don't know if there's a way to show like the most recent one available, but at least you could have potentially a report
+
+[Kristina Kelpe] 10:06:21
+That is just showing all what things are on so you can start to maybe research and then realize which ones you need to update.
+
+[Kristina Kelpe] 10:06:31
+All right. And there's separate training on how to update those but This, I think is really helpful for managing EIVs.
+

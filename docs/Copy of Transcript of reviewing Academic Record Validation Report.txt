@@ -1,0 +1,672 @@
+[Kristina Kelpe] 16:44:14
+I want to walk through this report, the Academic Record Validation.
+
+[Kristina Kelpe] 16:44:19
+To, one, explain why I set it up the way I did, but also to talk about the Workday data model, and how to maximize it.
+
+[Kristina Kelpe] 16:44:28
+So, let's walk through some of the pieces. I've got both the configuration here, as well as the display of it. So I'm gonna toggle back and forth between these two.
+
+[Kristina Kelpe] 16:44:39
+Okay, tip number one. The student ID. This is something that, in Workday, a student will have an ID. There will also be a… typically a universal ID.
+
+[Kristina Kelpe] 16:44:51
+Most institutions configure that. Make sure that these are going to match. They're going to make reports a lot easier.
+
+[Kristina Kelpe] 16:45:00
+Um, I worked with an institution where… the implementation partner had them configured differently. That is a… is a bad idea for reporting.
+
+[Kristina Kelpe] 16:45:08
+The more that these are the same, um, the better Workday expects them to be the same, so just a kind of a call out there around ID configuration.
+
+[Kristina Kelpe] 16:45:17
+The next one here, I included academic record ref ID. So, as you can see, these are looking a little bit odd. I would strongly recommend that you would use your student ID.
+
+[Kristina Kelpe] 16:45:29
+And then maybe an underscore, and then pick on the level, like UG.
+
+[Kristina Kelpe] 16:45:34
+Um, or something, if it was specific to a program, if they might have multiple at a single level, um, academic records, to think about that. Now, academic record, it's that there's a student.
+
+[Kristina Kelpe] 16:45:47
+And then a student has multiple times that they. Attend the institution. You want to focus on where you need separation for.
+
+[Kristina Kelpe] 16:45:57
+Federal and state reporting. That would be the key piece about when a student has an academic record. So you have in here.
+
+[Kristina Kelpe] 16:46:05
+Erin Day, and you've got the undergrad record, and you've got the graduate record.
+
+[Kristina Kelpe] 16:46:11
+The more that you want separate reporting of a summary of a student's GPA, you want separate credits, then you're going to want a separate academic record. Workday is a system really built around the academic record.
+
+[Kristina Kelpe] 16:46:25
+It's a key point, because in higher ed, we tend to talk about people as students.
+
+[Kristina Kelpe] 16:46:29
+And it's more about a point in time. But note that in Workday, you're very much focused on.
+
+[Kristina Kelpe] 16:46:38
+Almost… you always are pulling things from the academic record. A student is kind of like a worker, and just like a worker can have multiple jobs.
+
+[Kristina Kelpe] 16:46:48
+A student can have multiple academic records. It's viewed a worker, but they didn't have a job, then it really wouldn't do anything. Just the same as a student, if they don't have any academic records, which would be impossible. It's kind of like they get the academic record grits created.
+
+[Kristina Kelpe] 16:47:01
+Where the student gets created same time as the first academic record. There's there. All the bio demo data is stored on both a worker and on a student.
+
+[Kristina Kelpe] 16:47:11
+And that's where you're gonna do a lot of things around duplicate management, to say, is this the same individual? But all the pieces around academics are stored in the academic record.
+
+[Kristina Kelpe] 16:47:24
+Bio demo data, like addresses. Can be shared across a worker and a student. So all of those is stored on.
+
+[Kristina Kelpe] 16:47:31
+The student or worker business objects. But again, everything related to their expected completion date, a GPA, as much as we might use language in higher ed and call it a student, in Workday.
+
+[Kristina Kelpe] 16:47:43
+It would be an academic record. So, when you load in things to Workday, so there's this.
+
+[Kristina Kelpe] 16:47:50
+Concept called an EIB. I think it's Enterprise Integration Builder.
+
+[Kristina Kelpe] 16:47:56
+Which is not really that important, but there's gonna be many times that multiple.
+
+[Kristina Kelpe] 16:48:01
+Kind of power offices, like the registrar, like financial aid, they're gonna need to load things in via an EIB. It's just a way to mass-load in data.
+
+[Kristina Kelpe] 16:48:11
+That you don't want to do things one by one. And functional offices most likely are going to be doing some of this.
+
+[Kristina Kelpe] 16:48:17
+When you load these in, and even… this also applies just to integrations in general, you're going to use a lot of this academic record ref ID. So I strongly recommend that you have something intuitive, so that if something didn't work.
+
+[Kristina Kelpe] 16:48:32
+You don't… you have no idea whose student record 16-9 is.
+
+[Kristina Kelpe] 16:48:38
+I don't even… I'm really gonna have to do some work to kind of figure out, oh, that's Aaron Day's undergraduate academic record.
+
+[Kristina Kelpe] 16:48:45
+But if I had the student IDs under… with an underscore… with the level, like, underscore UG, I immediately could go in and search the student's ID to be able to find that individual and to dig into this more.
+
+[Kristina Kelpe] 16:48:59
+So just some best practices. It's a behind-the-scenes data point the student won't really see it, but it's… used so heavily within integrations and then just data loads, those EIBs.
+
+[Kristina Kelpe] 16:49:10
+That it's important, and that's where you frequently might want to have it in here, because in this case, Aaron Day has the same student ID. It doesn't get you that unique identifier, and sometimes with data, you really want it to be not just a name, but something unique.
+
+[Kristina Kelpe] 16:49:26
+To be able to separate those. So I typically wouldn't have this in but for academic record validation, this can be really important.
+
+[Kristina Kelpe] 16:49:34
+Because we wouldn't want to just check and make sure that all of Aaron Day Trader's records convert, or… all of, uh… We can't just say, is Aaron Day Trader in here correctly? We really have to analyze, is this academic record correct? Is this academic record correct?
+
+[Kristina Kelpe] 16:49:51
+Um, to make sure that's been done. Alright, so that's kind of talking about the data model. And here, as you can see, I list out student.
+
+[Kristina Kelpe] 16:49:59
+And I still can pull student here, and a lot of times people will want to do.
+
+[Kristina Kelpe] 16:50:05
+First name, last name. And I would encourage you to instead use this interactive.
+
+[Kristina Kelpe] 16:50:14
+Um, business object, because it makes it something where it's… um… it makes it… it's not a text field, you actually can interact with it.
+
+[Kristina Kelpe] 16:50:27
+There's a big switch from prior systems, where you might have had a lot of first name, last name, and you could have that in here, but I'd ask the question of why. The other thing when you use this, it's gonna pull in what you configure as, do you want.
+
+[Kristina Kelpe] 16:50:40
+The student's legal name to show, or do you want their preferred name to show? It's going to default to whatever your setup is. So it could be something where, on different reports, you want, typically, the preferred name, though, but maybe say it's a course roster.
+
+[Kristina Kelpe] 16:50:55
+And you actually want to give the students' legal name. Well, now, we're going to go in here and kind of edit this as we go. So if you were going to do that to get the legal first name here, because this is typically configured to have preferred name and then last name show.
+
+[Kristina Kelpe] 16:51:12
+What you would want to do if you went in here and you tried to put… let's just put a name.
+
+[Kristina Kelpe] 16:51:17
+Here. So, you can… I just happen to know that this is the legal name.
+
+[Kristina Kelpe] 16:51:26
+And you can have that there, which is separate from the preferred first name.
+
+[Kristina Kelpe] 16:51:30
+Um, so if I was going to put in the legal name, which is going to be there, then I would probably put that in.
+
+[Kristina Kelpe] 16:51:38
+And then for reports, I'd put in legal name. So then, someone like a faculty member who may need to know the preferred name, but also need to know the legal name.
+
+[Kristina Kelpe] 16:51:48
+Just in case the student, you know, puts that on papers, then it would be available. So then we've got that to show here.
+
+[Kristina Kelpe] 16:51:55
+So, let's keep going here. So on… let's go ahead and run this report.
+
+[Kristina Kelpe] 16:52:06
+I should have edited on the other one. So let's go ahead… whoops, actually just go here.
+
+[Kristina Kelpe] 16:52:12
+Let's go ahead and run this. So, also to note, there… how these get sorted is very interesting. Um, we could do a… I'm sorting here…
+
+[Kristina Kelpe] 16:52:25
+Because I want to see it alphabetically. I could have configured that in my report to source alphabetically, but just kind of keep that in mind.
+
+[Kristina Kelpe] 16:52:34
+Um, let's see if we've got… And we don't highly have great examples here, and this might be configured, um.
+
+[Kristina Kelpe] 16:52:44
+To pull in the… I'm not sure if they've really set up too many preferred names here, but we'll keep going, just to call out there.
+
+[Kristina Kelpe] 16:52:52
+Alright, so we've got undergraduate level. It shows interactive doesn't really do much, it's not going to really take you to anything, and in fact, it could take you to tasks, but that would be a bad idea.
+
+[Kristina Kelpe] 16:53:03
+To do configuration off of a report. Um, so, not exactly sure why Workday makes that interactive, but it is.
+
+[Kristina Kelpe] 16:53:11
+Um, so I think this one's pretty straightforward, and the meaning is what we would think it is, and in higher education.
+
+[Kristina Kelpe] 16:53:18
+Um, a call-outs… here is just to think about your levels a lot around the configuration tasks, about how you need to report students. I'd really.
+
+[Kristina Kelpe] 16:53:27
+Build your requirements based on federal and state reports. To make sure you've got all the levels in that you need, or you're going to have, let's say, it's going to make more sense, because academic unit and level are one of the levers to pull for configuration.
+
+[Kristina Kelpe] 16:53:43
+So, say it just was making more sense to have this level.
+
+[Kristina Kelpe] 16:53:48
+Like, non-degree that maybe necessarily isn't how you want in reports, then there could be a calculated field.
+
+[Kristina Kelpe] 16:53:55
+That would have the level as you need it for federal reporting. So just kind of keep that in mind.
+
+[Kristina Kelpe] 16:54:02
+Expected completion date. This is a very key item in Workday.
+
+[Kristina Kelpe] 16:54:09
+It is something that, in a lot of other systems, is not that important.
+
+[Kristina Kelpe] 16:54:14
+As you can see, you know, Aaron Day, um, and I know these ones are marked as complete. Let's see if we've got someone. Here we go. This student, Alan Adam Schneider.
+
+[Kristina Kelpe] 16:54:23
+Has an expected completion date of 9-2024, but he is in progress.
+
+[Kristina Kelpe] 16:54:28
+Taking classes. This is bad. This is… this is gonna cause problems in Workday. It's very important.
+
+[Kristina Kelpe] 16:54:36
+To keep the expected completion date in the future. And I know at a community college, that's really tricky. It's not like students are on these really standard plans.
+
+[Kristina Kelpe] 16:54:46
+They're exactly going to graduate, but to maximize Workday's functionality, you don't want expected completion dates to fall into the past.
+
+[Kristina Kelpe] 16:54:55
+You always want to be looking and saying. What are the students that are hitting their expected completion date, but are still taking classes?
+
+[Kristina Kelpe] 16:55:03
+Making sure you're pushing that out so that they just have more time. Just extending them, really, a year.
+
+[Kristina Kelpe] 16:55:09
+There's pieces like, um, we'll talk about the financial aid period record, where if a student doesn't have a future-dated expected completion date, and they have not registered for classes, they would not show up, um, in… they might not get.
+
+[Kristina Kelpe] 16:55:26
+This kind of business object generated for them. They won't get data generated.
+
+[Kristina Kelpe] 16:55:32
+Because they're not meeting the criteria. So, it's… and that's, like, your future-dated reporting tool in Workday. So you… you want to do it, it's based off the attendance plan, there's just so many things where Workday has built configuration expecting that these do stay updated. Unfortunately, there is no.
+
+[Kristina Kelpe] 16:55:52
+Automation. There's no mass process. Again, going back to those EIBs, those data loads.
+
+[Kristina Kelpe] 16:55:57
+This is a great example of an EIB where you'd say, okay, let's look at all the students who are hitting their expected completion date, they still want to take classes, let's go ahead and mass update those via an EIB.
+
+[Kristina Kelpe] 16:56:09
+So, um, but it's something in here that I… is a data point. If it wasn't that important here, especially at Madison, I could see it as not, but it's more of a… data maintenance piece for administrators, I say that's a really important, that's something you'd want on a dashboard.
+
+[Kristina Kelpe] 16:56:25
+To identify those that have expected completion dates in the past.
+
+[Kristina Kelpe] 16:56:30
+Alright, next one here, primary program of study status. This is so key to Workday. Um, it is something where these statuses.
+
+[Kristina Kelpe] 16:56:42
+Are ones where they really tell you. So, Workday takes a student's primary program of study. So let's go ahead and take a look at this student. And they do a lot of, like.
+
+[Kristina Kelpe] 16:56:52
+Assumptions of saying, well, if the student's primary program of study is in progress, then this student's relationship to the institution, or I could say this academic record's relationship to the institution.
+
+[Kristina Kelpe] 16:57:08
+Is in progress, because truly, a student doesn't have a relationship. A student, it's all about their academic record and what's the relationship there.
+
+[Kristina Kelpe] 16:57:18
+So, if this academic record is in progress, then this individual's relationship is there. I really discourage you from using academic record status, which is active or inactive. You have to have memorized.
+
+[Kristina Kelpe] 16:57:35
+All the different statuses that Workday has, and know how does.
+
+[Kristina Kelpe] 16:57:40
+Workday calculate these. It's the same as, you know, saying, give me a list of current students. Everyone can have their own interpretation.
+
+[Kristina Kelpe] 16:57:49
+If you say this student is in progress, it is very clear that they are… I guess in this case, they are able to take classes. If they are complete, that means they are done, they have graduated. Um…
+
+[Kristina Kelpe] 16:58:03
+It is empowering users to be able to understand the data here. If you say active, inactive.
+
+[Kristina Kelpe] 16:58:11
+Now, you're gonna have to have a legend to explain to them what these mean, they have to read the legends.
+
+[Kristina Kelpe] 16:58:16
+You're less likely to maximize the data, as we know, not everyone's going to take the time to do that. They might say, I don't need to read that.
+
+[Kristina Kelpe] 16:58:24
+I have my definition of what active or inactive would mean, and of course, this would be it.
+
+[Kristina Kelpe] 16:58:29
+So, this one here, this is where, if you did include it, I would say it's going to be calculated off of this, and if you put these together, I think that would be fine, but I'd strongly encourage you to consider really removing this, like, not using this. And there are many workday, um, delivered reports that are going to have this academic record status.
+
+[Kristina Kelpe] 16:58:54
+Like, find academic records, I strongly encourage you to… let's just go over to that. Let's go to Find Academic Records.
+
+[Kristina Kelpe] 16:59:03
+If I can spell… I strongly encourage you to take this report where you can see it has this academic record status, and that's it.
+
+[Kristina Kelpe] 16:59:14
+Um, this is a great example where I would say take this Workday Standard Report, copy it.
+
+[Kristina Kelpe] 16:59:20
+And we're gonna make this, um… We're gonna make this for Madison.
+
+[Kristina Kelpe] 16:59:27
+And truly, you could keep the same name, or you could make it temporarily a new name, and then hide the workday-delivered one. That's definitely something I would recommend.
+
+[Kristina Kelpe] 16:59:34
+So, we could get rid of this, and instead do primary program of study status, which I understand is a whole mouthful, um, but that is really what you want to learn.
+
+[Kristina Kelpe] 16:59:49
+Um, we're gonna go ahead and go… forget where this is. Then we're gonna go here. So that was just what was displaying, and then we've got our filters here. So again, um, this is what was on the left-hand side.
+
+[Kristina Kelpe] 17:00:04
+So I'm going to go ahead and switch this to primary program… Study status, and again, if that's such a mouthful for your institution, totally understand. Um, you could just probably say, um.
+
+[Kristina Kelpe] 17:00:20
+Status, and just leave it at that. I think that will communicate what you need.
+
+[Kristina Kelpe] 17:00:25
+Also noted, um, here, you can customize a lot of things, so to say, hey, we really need to know who's a veteran.
+
+[Kristina Kelpe] 17:00:34
+Um, see what's in here… let's find… let's say… citizenship status.
+
+[Kristina Kelpe] 17:00:42
+Be very… I've got a whole thing I can talk about with citizenship, where Workday's got its own definitions, and they frequently do not… or not frequently, they do not match iPad definitions of how they calculate things like international students.
+
+[Kristina Kelpe] 17:00:55
+So be very careful to verify with any of these terms, do they match the data definitions at.
+
+[Kristina Kelpe] 17:01:02
+Madison Area Technical College. Um, but there's various things that you can pull in here. That's where I encourage you.
+
+[Kristina Kelpe] 17:01:10
+To not use what Workday provides, I would really pull in things that are important to the institution.
+
+[Kristina Kelpe] 17:01:18
+This is not that you're going to miss out on, um… Workday updates. If anything, what I found with Workday updates is sometimes they include things that's like, ah, that really doesn't matter here.
+
+[Kristina Kelpe] 17:01:31
+So having something customized is way better. This is where also you might say, do you know what? What we really matter… the thing that we would want to see most is this status here at the top. You know, academic unit.
+
+[Kristina Kelpe] 17:01:45
+Not so important for what we're trying to see. We want to see, um, programs of study, because that… Workday is obsessed with the primary program of study. Well, at most institutions, you want to be able to search by all their programs of study.
+
+[Kristina Kelpe] 17:02:00
+So again, it's much better to do the copy, um, because you can't edit the standard, and really to make this your own of… and what you need there. So, now… when we run this.
+
+[Kristina Kelpe] 17:02:16
+You're getting the things the way that you want it to be in your… the language here. So, just a tip.
+
+[Kristina Kelpe] 17:02:23
+Um, every time you make a report, make sure you go ahead and share it.
+
+[Kristina Kelpe] 17:02:31
+In this case, I'm going to do with all authorized users. Typically, you wouldn't do that. You'd use the specific groups, and I didn't put a tag, and I didn't put my description, which is also something you always want to do on a report.
+
+[Kristina Kelpe] 17:02:43
+Alright, so, just a little side note here, I'm going to take a little bit of paths, just because I'm super passionate about this, and I think it's something that, if it can save you so much time and effort and headaches.
+
+[Kristina Kelpe] 17:02:57
+And to do it now, to do these kind of customizations really off of every standard report.
+
+[Kristina Kelpe] 17:03:03
+So all of the find… course section definitions. Get it customized now to what you need at Madison Area Technical College, fine court, all the things that students are going to use. All these delivered reports, the longer you use the standard one, the more you might get used to it, um, and which is just too bad, because you can customize it.
+
+[Kristina Kelpe] 17:03:28
+As you can see, it was very simple to do, and um… The more… the fewer clicks and the faster you get to information, the better.
+
+[Kristina Kelpe] 17:03:36
+Alright, let's keep going over. Um… GPA, cumulative overall, very straightforward, exactly what you think it means. Uh, but let's get in to talk about credits. This is not what you'd think it means. So, this is the workday fields, the completed credits.
+
+[Kristina Kelpe] 17:03:51
+There are the total number of completed credits. That was what Workday's name was. Even if you look at this, you… it really looks like you're getting everything. Well, let's watch this.
+
+[Kristina Kelpe] 17:04:04
+Student Record 1. When Workday uses that… That's not really a thing. I wish it would say it for an academic record. There is not really a student record. Students don't get.
+
+[Kristina Kelpe] 17:04:16
+Academic information connected to them. Um, but I really wish this title is misleading. It should be institutional credits. Um, and I've found from validation that this… this will be wrong, and so you have to… Almost everything in the system where you read a description, you have to think about the edge cases. Well, where would that… or, this is where working with Legato, we found a lot of these shortcuts to say, watch out for this. Um, things that just implementation partners, I think.
+
+[Kristina Kelpe] 17:04:47
+Don't really know, because they don't have access to the institution's data to even fully realize these donors. They don't have the time that they spend validating these things. So.
+
+[Kristina Kelpe] 17:04:59
+In this, you truly would want an additional, um, calculated field that you pull together and you add up the number of.
+
+[Kristina Kelpe] 17:05:08
+Institutional credits plus transfer credits, because in higher ed, we really like to think of cumulative credits, and so I think you're going to want a calculated field here in this… in a report like this.
+
+[Kristina Kelpe] 17:05:18
+That has the combination. It's helpful to have both of these so that you can validate, well, where are we at with the institution credits? Where are we at with the transfer credits? So that you're… when you're… if data's not matching, to quickly get down to, well, where is it coming from? Start at the high level, doesn't even match, we don't even need to go into the detail. If it doesn't match, okay, is it because of something.
+
+[Kristina Kelpe] 17:05:37
+Taken at Madison? Is there something coming from transfer? And that can help to get it to the right area to problem-solve this.
+
+[Kristina Kelpe] 17:05:43
+Alright, let's go back to this report being run. Uh, Workday, as a system, is obsessed with.
+
+[Kristina Kelpe] 17:05:50
+Primary program of study, and that may not always be a thing, especially if the student maybe has two equal majors, and to say, well, there isn't really one that we really have to say, workday is obsessed with it again. When we talked about they take that status and they associate it with.
+
+[Kristina Kelpe] 17:06:07
+The primary. If the primary program of study is discontinued, then that student's relationship with the institution.
+
+[Kristina Kelpe] 17:06:15
+Let's see if we've got a student in here. Oh, we don't have one. That student's relationship. Their primary program of study status is on an institutional withdrawal, then that means the overall relationship. Let's go take a look at this student.
+
+[Kristina Kelpe] 17:06:32
+The overall relationship to the institution is that. So you can see this discontinued here, this just means the student.
+
+[Kristina Kelpe] 17:06:42
+Decided they didn't want to be a mechanical engineering major, but if this status was up here as discontinued, because it's tied to the primary, that means this student's no longer at the institution.
+
+[Kristina Kelpe] 17:06:54
+Now, for federal and state reporting, if a student is on an institutional withdrawal, um, if they are on a leave of absence, you can configure that to be reported as well. There's lots of things that can report a student as withdrawn. It doesn't.
+
+[Kristina Kelpe] 17:07:09
+Have to be the status. So it's these levers where Workday's chosen language that connects to higher ed, I think sometimes students or institutions look at their policies.
+
+[Kristina Kelpe] 17:07:22
+And they're looking for it to be, like, a one-to-one match. I think there's a lot better to say, this is what we're trying to accomplish when… of how we want to report students as withdrawn.
+
+[Kristina Kelpe] 17:07:31
+And then see which status would make sense. So I know we're working, Legato's working with another community college.
+
+[Kristina Kelpe] 17:07:37
+That has students that may start a semester, but then they decide, they kind of, they do a… they call it a term withdrawal.
+
+[Kristina Kelpe] 17:07:46
+And they were having huge problems to use this institutional withdrawal status.
+
+[Kristina Kelpe] 17:07:52
+Didn't make sense. Institutional withdrawal in Workday means you're never, ever coming back to the institution.
+
+[Kristina Kelpe] 17:07:58
+Um, or if you do, you're gonna have to reapply. And for these students that were doing a term withdrawal, that wasn't the case. They wanted to continue to take classes the next semester. It was just they needed to report them as withdrawn for that individual semester. Well, in Workday.
+
+[Kristina Kelpe] 17:08:13
+The status that they've configured for that is leave of absence. So while that community college did not have a leave of absence policy.
+
+[Kristina Kelpe] 17:08:20
+It's a matter of using that status to be in Workday to accomplish their goals. So trying to really dig into these statuses.
+
+[Kristina Kelpe] 17:08:28
+Um, for reports, if that was something you wouldn't want to potentially show, again, that could be a calculated field.
+
+[Kristina Kelpe] 17:08:36
+That if it shows, um… leave of absence, then maybe that calc field returns term withdrawal.
+
+[Kristina Kelpe] 17:08:43
+Or you start to just say that in here, and there could have been a reason tied to this, it could have been leave of absence with… as the reason of term withdrawal. So things that you could do from a reporting standpoint.
+
+[Kristina Kelpe] 17:08:58
+But again, just calling out this whole piece, I'm about primary and the status that are super, and as you're making decisions on the data model, and, like, which… on which to go with and saying what you've done, this is a core in, and this is where.
+
+[Kristina Kelpe] 17:09:12
+Things can start to clash across systems, and the more that you do convert into this, because I think the way that Workday has it set up, well, it's a little tricky to maintain at a community college, because these statuses, they don't update automatically.
+
+[Kristina Kelpe] 17:09:26
+Um, it's a lot of maintenance, but running reports and doing mass updates to maintain them, it can keep your data super clean, and even… easier to get counts, um, more accurately, and to manage students, um.
+
+[Kristina Kelpe] 17:09:41
+Kind of process in the system. So I'm like, I think it works out really well, but you do have to have that investment.
+
+[Kristina Kelpe] 17:09:47
+Around these statuses. On the programs of study, so let me filter… let me get rid of this. On programs of study, Workday likes to sort this, um, alphabetically.
+
+[Kristina Kelpe] 17:10:01
+And that often does not work well with reportings. These are the delivered fields here. Strongly suggest, um, working with Jen.
+
+[Kristina Kelpe] 17:10:11
+To get in, uh, calculated fields built that would separate these out into separate columns. She's found a very clean, easy, accurate way to do it, happy to go over that with you, but just trying to get this in quickly.
+
+[Kristina Kelpe] 17:10:26
+And it's one of those that'll give you, like, a template, and if you need to do more, then you're going to have that in there. But these are complicated, many implementation partners don't know how to separate these out cleanly.
+
+[Kristina Kelpe] 17:10:36
+She's got it done, built it for multiple institutions, it's working marvelously at those institutions, and that's why I'm like, it would be a good investment just to have that.
+
+[Kristina Kelpe] 17:10:46
+Latest class standing, exactly what you think it is, no translation issues. It is how we use it in higher ed.
+
+[Kristina Kelpe] 17:10:52
+Um, be careful on things like latest academic standing. Um, depending on what you're looking at in reports, um, there is this piece of academic.
+
+[Kristina Kelpe] 17:11:04
+Standing values. And… I forget where Workday's at with this. With this one, they've made it one-to-one.
+
+[Kristina Kelpe] 17:11:12
+But be careful, um, in this that… Let's see if we've got… oh, that's interesting.
+
+[Kristina Kelpe] 17:11:18
+They've set that up as a primary, which that really wouldn't be, because that would be typically an additional standing.
+
+[Kristina Kelpe] 17:11:24
+Um, there's just some pieces where sometimes you get the… there's Workday values, and then you can have a label to say when you pull things into a report, or you're doing filters, are you getting this… so let's say… Um…
+
+[Kristina Kelpe] 17:11:43
+Let's say you've got something like this, um…
+
+[Kristina Kelpe] 17:11:50
+And I'll pick on those.
+
+[Kristina Kelpe] 17:12:01
+Just to kind of call out these academic standings, um…
+
+[Kristina Kelpe] 17:12:09
+So you are getting them to show up here as they are, but let's go into this report, and let's say we were going to filter on these.
+
+[Kristina Kelpe] 17:12:20
+Say you want to filter to certain. Kinds of academic standings.
+
+[Kristina Kelpe] 17:12:27
+Oops.
+
+[Kristina Kelpe] 17:12:38
+So, be careful here, um, this does look like it's working correctly at this time, but I've seen sometimes on these.
+
+[Kristina Kelpe] 17:12:45
+Um, for different calc fields that you've got the actual… these original statuses. So, just be careful about that. I've seen inconsistencies across different business objects, um, about what appears, so you… if you're like, where's…
+
+[Kristina Kelpe] 17:13:05
+Academic probation at MATC, then you may need to go in here and to these values to see which one you, kind of, the label that's been put on it. So just kind of a call out there.
+
+[Kristina Kelpe] 17:13:21
+Let me go back out of here…
+
+[Kristina Kelpe] 17:13:31
+Alright, continuing on here. So, the last one is, say you want to have.
+
+[Kristina Kelpe] 17:13:39
+The email address. So, when I go back over here, as you can see, I switched over to the student business object. The mistake that I frequently see in these reports when they're built is that I'll see someone write a calculated field.
+
+[Kristina Kelpe] 17:13:57
+That pulls in primary institutional email and puts it on the academic record business object.
+
+[Kristina Kelpe] 17:14:03
+And I just think that's a complete waste. You can easily, if you, um… I call it Workday, you can have…
+
+[Kristina Kelpe] 17:14:12
+Um, you can make a jump to one related business object. But if you need.
+
+[Kristina Kelpe] 17:14:19
+In how you build reports. So let… let me go over here. So, let's say… Trying to think of something where it's two jumps.
+
+[Kristina Kelpe] 17:14:27
+Um… You need something that is somehow two jumps away from… you can have a business object.
+
+[Kristina Kelpe] 17:14:38
+And related business object, but if you need a… something that is… this one's not great. I'm like, academic record has a lot of related business objects, so I'm not thinking of a great one at this time. Let's see if I said…
+
+[Kristina Kelpe] 17:14:56
+I can even get to that. Um… Of course, it's gonna… something that would not be able to be returned, um, to business objects over, then that could be difficult. But if I was over here…
+
+[Kristina Kelpe] 17:15:07
+And I put in email. You can see the only thing I get back is current user email address. Every time we see current user.
+
+[Kristina Kelpe] 17:15:17
+The primary worked user, the person logged in. That is absolutely not what you want. So you might say, where's it? But instead of doing a calc field and pulling it here.
+
+[Kristina Kelpe] 17:15:27
+It really… you just can go over and say, well, any of my bio demo data?
+
+[Kristina Kelpe] 17:15:33
+That's over on the student business object, and I get all kinds of information.
+
+[Kristina Kelpe] 17:15:38
+That might not be on the academic record, but I can just get it over here. I don't have to build a calc field, I just use the related business object.
+
+[Kristina Kelpe] 17:15:47
+So let's say this is a great one. So say I wanted to get a lot of information.
+
+[Kristina Kelpe] 17:15:53
+About the students… Um… Um, we'll just pick on addresses. Like, say… let's say I need a lot of addresses. Well, in this case.
+
+[Kristina Kelpe] 17:16:06
+I could get all institutions, but say I want to go to… well, I want to pull in.
+
+[Kristina Kelpe] 17:16:11
+The all-institutional address. I got more detail I want to take from that. I can't do that.
+
+[Kristina Kelpe] 17:16:16
+So, if there was data in here, that's when a calculated field makes sense.
+
+[Kristina Kelpe] 17:16:22
+To say, I can't make that jump, I need even more detail, but I need it organized by academic record, then calc fields. But when I see calculated fields, and I see it so often, and it's built many times by implementation partners.
+
+[Kristina Kelpe] 17:16:38
+Where I see calculated fields built. Trying to put something just on the primary business object when they easily could have just pulled in the related business object to pulled it in there.
+
+[Kristina Kelpe] 17:16:48
+The more that you avoid… I don't want to put in primary institutional email.
+
+[Kristina Kelpe] 17:16:57
+And then I would probably label this as MITC email, because that makes a lot more sense to users.
+
+[Kristina Kelpe] 17:17:04
+That you just want to do this. You're gonna… you're gonna have to have calc fields, but when you build completely unnecessary ones.
+
+[Kristina Kelpe] 17:17:11
+That's just cluttering up the system. That's… the more… when you build a calc field, it is taking a risk.
+
+[Kristina Kelpe] 17:17:17
+Because the people writing the calculated fields, and that is going to take some technical skills, you probably won't.
+
+[Kristina Kelpe] 17:17:23
+Have as many of your functional users writing calculated fields, that there could be a misunderstanding in the translation about what's supposed to be in there.
+
+[Kristina Kelpe] 17:17:33
+When it's like this, that really empowers the owners of the business owners in the different offices to be able to see things to better understand it, and say, yes, this is what it is. If you have this buried in a calculation.
+
+[Kristina Kelpe] 17:17:46
+They can, but they really have to dig through, and it is much more prone to error. So this is where I say.
+
+[Kristina Kelpe] 17:17:52
+Don't use a calculated field unless it's absolutely necessary. In that case, you're going to do a lot of validation.
+
+[Kristina Kelpe] 17:17:58
+To make sure it's there. Um, but use this here. So, you've… easy to get to any of that bio demo data, but I also encourage you, you might be coming from a place where you put in a… you just put in so much information.
+
+[Kristina Kelpe] 17:18:14
+And again, you got first name, last name, address. Again, what was the point of it? Why did you have all that in there? Were you doing mail merges based on that?
+
+[Kristina Kelpe] 17:18:22
+Do you need everything all in one place? And I am all about kitchen sink reports, but the more that you put everything into one.
+
+[Kristina Kelpe] 17:18:30
+Can start to kind of take a long time to pull back data. And that might not be worth it to say, well, we might have one report, and that we might use for communications, and it's got all the different things that we might need, um, for that. And we've got separate reports based on academics and what we need there. So, asking about when you.
+
+[Kristina Kelpe] 17:18:50
+Do look at your prior reports of, like, what were you trying to accomplish, what do you need? Um, sometimes reports can come together, but sometimes they should be separated.
+
+[Kristina Kelpe] 17:19:00
+Based on the data model. So hopefully this gives you a good kind of introduction into a hands-on report. I know we only made it through one.
+
+[Kristina Kelpe] 17:19:10
+But trying to get into this. Um, do you know what? Let me call it one last thing here. On these data source filters, these can sometimes be magical in terms of being able to filter. So, say you need a report.
+
+[Kristina Kelpe] 17:19:22
+So you only wanted private students, so the students that have opted out of the directory. Um, you could just put that filter in here, and you… now, you obviously could go into your filter and to be able to do it here.
+
+[Kristina Kelpe] 17:19:34
+Um, as well, but, um, it's just a quick one. Um, be super careful. Anytime you see current.
+
+[Kristina Kelpe] 17:19:43
+Um, you know, it's current students, everyone's got their own definitions. Why did Workday define this? Um, I would be very, very careful about doing that.
+
+[Kristina Kelpe] 17:19:52
+Um, but if you're trying to find academic records where they have.
+
+[Kristina Kelpe] 17:19:56
+Pending grades to publish, you know, that's… some ways to get this, um…
+
+[Kristina Kelpe] 17:20:03
+So, just a little call-out there. You typically go with the default, but sometimes that can get you to exactly what you needed by checking the Workday Delivered filters, um, and it's super great, so…
+
+[Kristina Kelpe] 17:20:17
+I would love to be able to spend time going through all of these.
+
+[Kristina Kelpe] 17:20:24
+Key, um, data sources, and how things have been built to say, what's the difference between course.
+
+[Kristina Kelpe] 17:20:32
+Registration, uh, student course registration records and student course registration, business objects, and which you get with… when you choose which one, the pros and cons, to, again, help you keep your system as clean as possible. Um, this is where Jen and I have spent.
+
+[Kristina Kelpe] 17:20:52
+Time really digging into. How Workday operates, that implementation partners just don't get the opportunity to do that, because we've worked with schools live that, um, we understood by their users working side-by-side to co-corab.
+
+[Kristina Kelpe] 17:21:08
+Co-collaborate and to build these in here to work smoothly. So we have all these starting points of things that actually work from multiple institutions that are running very smooth, that don't have issues, the ones that are being selected for rising, to present in ways because it's smooth systems, and these are.
+
+[Kristina Kelpe] 17:21:27
+People with limited budgets, limited time, um, things that are really sustainable, budget-friendly, and again, getting to that versus using what comes from implementation partners.
+
+[Kristina Kelpe] 17:21:38
+If you talk to other schools, many times you have to scrap it. It didn't actually work. Again, they just don't know we're missing feedback loops. I wish that would be addressed, but there's just feedback loops missing, and they don't get the time to get the feedback of saying, these are really actually effective reports.
+
+[Kristina Kelpe] 17:21:54
+Um, so this is where we'd love to shortcut that with you, and help you build this out, but also to say, this is how you can maximize Cognizant. There is so much knowledge, there is so many things to help, but it has to be done in more of a targeted way.
+
+[Kristina Kelpe] 17:22:06
+And so, being able to help monitor and guide to say, this is how you can maximize them, I think that's where Madison's… you're just going to see this return on investment here.
+
+[Kristina Kelpe] 17:22:15
+So, I hope this was helpful, um, and again, we're happy to, uh, would love to go through more of these, it's just gonna take time. It's a lot of data sources and business objects to give this kind of training to, but this hopefully gives you a sense of how we can do this, and then iterative and do some hands-on exercises to kind of, like, see the data.
+
+[Kristina Kelpe] 17:22:35
+In some of these differences, too, and how, um, to understand these different business objects and get this all documented, um, so that you're really empowered and you're working on your data governance and how they map to your definitions at Madison Area Technical College as well.
+

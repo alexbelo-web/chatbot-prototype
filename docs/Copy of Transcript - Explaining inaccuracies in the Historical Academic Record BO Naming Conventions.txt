@@ -1,0 +1,193 @@
+09:48:51 I want to talk through some of the issues with
+09:48:55 Workday's data definitions.
+09:48:57 And why you have to be really careful in writing reports.
+09:49:02 I'm going to start with the report that I've written around…
+09:49:07 validation of historical academic records, and talk about why I use the various fields.
+09:49:13 So, in this one, you can't get access
+09:49:17 to the student ID, you have to remember, these are text files.
+09:49:21 The transcript business object is also text-based, and that's why it's often easier to pull from transcript
+09:49:31 data. It's also the link that you can possibly have.
+09:49:35 between your active students and historical, sort of active students, the ones that read off the Workday config,
+09:49:43 are… when you pull from transcript business object data,
+09:49:47 It puts them both into text files, and so you are able to mix that. Otherwise, it could be a little tricky mixing across the different types from text files to ones that really read off of business objects.
+09:50:02 So, let's talk through this a little bit more. Um…
+09:50:07 So on this, I switched over my primary business object over to the historical program of study record.
+09:50:15 This is because I want to have a single row for every line. Workday, when they pull this in, will concatenate.
+09:50:24 So, it'll pull in…
+09:50:26 just a lot of information that I don't really want to gather. I really want to have all of these pieces separated out so I can validate them individually and not have a merge kind of into
+09:50:38 kind of a bad reference ID, um, when Workday puts it all together. So that's why I've separated out. In order to get to that, I didn't need to build a calculated field.
+09:50:48 I can just go… this is a related business object, so I can just go to the related business object, and I'm able to get that
+09:50:57 Um, there.
+09:51:00 I want to pull in, again, the academic level tied to this.
+09:51:04 And then it starts to get a little tricky. Workdays, uh, made mistakes here in their data definitions.
+09:51:13 So, it has stored
+09:51:15 the academic… or, sorry, it has stored
+09:51:20 What should be the program of study status.
+09:51:25 onto what they're here calling program completion status.
+09:51:30 But if you look at a historical academic record,
+09:51:33 It's called conferral status here.
+09:51:36 All of these…
+09:51:38 have very different data definitions with
+09:51:42 active students. A conferral status is something that is
+09:51:48 different. So if I was…
+09:51:52 Going over here…
+09:51:56 So this is a report… I'm gonna go back here.
+09:52:00 You can see behind the scenes.
+09:52:03 I filtered this report because I can start to show you
+09:52:07 Um, these pieces. So, look, we're on the academic record business object.
+09:52:11 For consistency, I just pulled in that transcript student ID,
+09:52:15 So, remember, academic record status is a calculation
+09:52:21 based on…
+09:52:24 the status of the primary program of study.
+09:52:29 This is where Workday takes a shortcut,
+09:52:34 And while it assigns the same statuses to…
+09:52:38 All programs of study have a status.
+09:52:41 But if it's the primary,
+09:52:43 It's a shortcut to say, that's the overall relationship of the individual with the institution.
+09:52:52 Academic record status, I am very much against it, because it's active or inactive, and you must know Workday's data definitions of that.
+09:53:04 which the only way to find it
+09:53:06 is unfortunately going here to student status.
+09:53:11 Which, again, student, that's where bio demo data is occurred. There is…
+09:53:15 There literally is no such thing as a student status, and I have reported this to Workday.
+09:53:20 Um, it's a bug.
+09:53:23 So, a student can't have a status.
+09:53:27 A student has multiple academic work. Just like a worker can't have a
+09:53:32 status. If you… if they have multi… if they have multiple jobs, you could…
+09:53:38 come up with your own, but again, you're taking this word status, and without having consistent data definitions,
+09:53:46 Where status is applied in a consistent way of what a status means.
+09:53:52 So, it gets really confusing.
+09:53:54 And so, a status really needs to have a consistent meeting.
+09:53:59 In this case, you must…
+09:54:02 have to know literally this page. And so when you use this,
+09:54:09 your… it can feel like a shortcut.
+09:54:12 But many times, or typically, a student that has graduated is very different from somebody
+09:54:19 that has been dismissed from the institution.
+09:54:23 So, if it's tied to account credentials,
+09:54:28 Which is something totally separate from Workday, and how that, and how account credentials are managed.
+09:54:34 It's something to keep in mind. So, potentially, a student that's dismissed
+09:54:39 They're never, ever coming back.
+09:54:41 Their credentials can, uh, go away in a very different way from a student that would graduate.
+09:54:48 be complete, and be looking to attend again.
+09:54:51 A really tricky thing here is if a school uses suspended,
+09:54:55 Which is counted as inactive, but this is a very temporary status. It actually requires a return date.
+09:55:02 But so many reports are built off of academic record, which is what is the data as of today?
+09:55:09 So even if they're suspended today, and you're going off inactive,
+09:55:15 Then, should they return,
+09:55:17 It gets really, uh…
+09:55:20 If that impacts account credentials, because we're using academic record status,
+09:55:25 gets really tricky.
+09:55:27 There's also trickiness with using academic record status here with matriculated, which is incoming students. Sometimes you want them in your account, sometimes you don't want them in your counts or your reports.
+09:55:37 So, when you use the program of study status, um, it works much better.
+09:55:44 And typically, if you're doing counts, then you're going to want to go off by an academic period.
+09:55:49 Um…
+09:55:51 Which, again, has its own complications to it, but I won't get into that here. But I want to call out this piece of program of study status, and let's go back to the historical piece in the problems that we've got here.
+09:56:03 So, remember, we have…
+09:56:05 This is how you can see… I'm looking at the active student, the academic record business object.
+09:56:11 So, um, I want to show you here on the filters, because this can be helpful to see the complication.
+09:56:17 Look what this has here. You have a mix of
+09:56:22 program completion statuses,
+09:56:23 And primary program of study statuses. So you have things on here, like conferral pending, that when we go look at this list,
+09:56:34 doesn't exist. This is not an academic records, um…
+09:56:39 Again, an academic primary program of study stats, this is the only list of the available program of study statuses.
+09:56:46 You cannot assign another status. The only one here is pending completion.
+09:56:53 What you get in this list…
+09:56:59 is if I want, and if we want to program completion,
+09:57:05 Which is a separate tracking.
+09:57:08 A separate tracking if the student
+09:57:11 is the process in which they're going to be graduating. So here, this
+09:57:16 is an accurate…
+09:57:19 list of program completion statuses.
+09:57:23 Again, as a subset, for those that are in pending completion,
+09:57:28 Each student should be in one of these statuses.
+09:57:33 Because we're tracking their pending completion. It's like a different… it's like a second level of detail that we want to have on this.
+09:57:41 But, for whatever reason,
+09:57:44 Truly, I can't even justify some of these in here.
+09:57:47 Um…
+09:57:50 None of these… these are statuses, and so you have… I call them phantom statuses. They don't exist.
+09:57:57 You have to go back to the documentation and only use what's available here.
+09:58:02 And again, this gets really tricky when you start to look at historical academic record.
+09:58:09 Because what you have available here…
+09:58:12 is you only have conferral status. You don't have a field that says,
+09:58:19 Um, I'm primary program of study status.
+09:58:22 We don't want to use academic record status of active or inactive, because this is a text-based file. Whatever shows up here is what's going to go on the transcript.
+09:58:33 So, I really wish this would have said to keep consistent language, primary program of study status.
+09:58:42 Let's, uh, show you how it makes, again, makes matters worse.
+09:58:47 So, if we go in…
+09:58:50 here. Again, we only had this piece of the…
+09:58:56 program completion status.
+09:58:58 Um, which we have in here. But if I go in…
+09:59:07 On this report, and this was hard to find. I had to do trial and error.
+09:59:13 But there is something that says record status.
+09:59:18 This… if I put this in…
+09:59:22 It's showing up blank. There's nothing that's getting returned in this field.
+09:59:28 So it's only getting returned over here.
+09:59:32 So this is really something that's a problem that we need to have
+09:59:37 Um… that corrected by Workday. This data…
+09:59:43 One, this should match
+09:59:45 with what's in…
+09:59:47 Here, and two, it should get a correct name. If we want to have a separate field tracking conferral, which would match
+09:59:57 the… how active academic records, which will have a separate conferral status. It's kind of like, well, if you're complete,
+10:00:04 So when we talked about, remember, the…
+10:00:07 looking at a student. If you're complete,
+10:00:10 Um, then you have an education credential, you… there's conferral data, but it's stored, again, on a separate
+10:00:18 business object. So if I went over here…
+10:00:33 We can see, um…
+10:00:36 There's more pieces stored on the education credential.
+10:00:43 Uh, I guess I've got that broken down, so…
+10:00:50 I'd have to look at the right business object to take that from.
+10:00:53 Alright, um, I'm not going to go too much into that, but I'm like, it's just the conferral is stored elsewhere. It's tied to things like
+10:01:02 the date controls.
+10:01:04 Um… it's not the same.
+10:01:08 as the effective date. So, if we had… so this is our fake student, Autumn Snow.
+10:01:15 And if I went into… she had a completion.
+10:01:32 If we had a completion here,
+10:01:36 And the SUD, um, complete, I know it won't allow you to complete a record this way.
+10:01:40 This effective date is not the same as the conferral date.
+10:01:46 This effective date…
+10:01:48 is tied to the status.
+10:01:53 the primary program of study status, or the status really tied to, if any, if you had one
+10:02:01 they were discontinued from one program, or in progress in one program, but…
+10:02:08 discontinued in another program.
+10:02:10 you'd still get that status date tied to this.
+10:02:14 But this is, again, something very different from
+10:02:17 uh, conferrals.
+10:02:19 So, if we go back over here to my custom report on the academic record,
+10:02:25 And I'm going to filter this instead here by someone
+10:02:30 That is complete.
+10:02:39 So let's go look at the student.
+10:02:50 We look in this earned credentials.
+10:02:55 see this conferral date?
+10:02:56 That's why it is something that is different.
+10:03:00 If I go back over here…
+10:03:04 And go look.
+10:03:09 In this location.
+10:03:12 Sorry for the scrolls…
+10:03:15 8-2024…
+10:03:17 See if this works out… ah, I chose a summer student, which I think in that case, it is the same.
+10:03:24 I may need to go back over here.
+10:03:26 Um…
+10:03:29 Let's see…
+10:03:31 This is not… I think in the summer is the one time that the last day of classes is the
+10:03:37 Same as the conferral date.
+10:03:39 But these should be…
+10:03:46 what's in the effective date, and we short-cutted this for those students that are converted, but for those that, um…
+10:03:54 Yeah. So we have 5-4-2024.
+10:04:02 That's actually…
+10:04:04 Kind of interesting, that…
+10:04:07 Might be a mistake, actually, here.
+10:04:15 That seems odd. So that the student's conferral date was 5-24…
+10:04:23 Let's actually see, so it looks… that's saying 524.
+10:04:27 Um…
+10:04:29 So this looks like that… that is a mistake that we should correct.
+10:04:35 Um, probably this was part of data cleanup, and I guess we should track any of these, but you really want these effective dates to be the last day of classes, and again, this is where, when you're doing data cleanup, it can just
+10:04:49 put that date in.
+10:04:51 It wasn't the system of record for National Student Clearinghouse reporting, but really to make Workday's reporting work effectively, you want to have this date be the last day of classes, and again, which is different from a conferral date
+10:05:05 Where that's the date they actually received their degree.
+10:05:11 So again, all this goes back to when you're trying to pull this…
+10:05:15 off of…
+10:05:17 Um, historical academic record, it is…
+10:05:22 incorrect and…
+10:05:25 tricky about the language that's used in multiple ways here.
+10:05:29 But hopefully this gives you more of a sense of understanding these business objects.
+10:05:34 what they mean, and how to navigate them.
+10:05:37 in Workday.

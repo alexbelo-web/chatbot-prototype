@@ -1,0 +1,678 @@
+[Kristina "Kris" Kelpe] 18:18:55
+security recommendations.
+
+[Kristina "Kris" Kelpe] 18:18:58
+So I do want to mention, um, aside from this agenda, that the overview that I'm talking about within this, uh, for financial aid security isn't everything that you need to know about security within Workday, but it is
+
+[Kristina "Kris" Kelpe] 18:19:09
+um, you know, relevant information that I think is important for those in financial aid to… to know.
+
+[Kristina "Kris" Kelpe] 18:19:17
+So we'll dive right in. So, security within financial aid.
+
+[Kristina "Kris" Kelpe] 18:19:21
+All right, so it is important to understand what parts of security
+
+[Kristina "Kris" Kelpe] 18:19:25
+Um, are defined by Workday.
+
+[Kristina "Kris" Kelpe] 18:19:27
+And how we define those areas, and also why it's necessary
+
+[Kristina "Kris" Kelpe] 18:19:31
+Um, so that way, you all can understand how we… how you can utilize the Workday Security Framework.
+
+[Kristina "Kris" Kelpe] 18:19:37
+in order to, um… in order to make your security preferences.
+
+[Kristina "Kris" Kelpe] 18:19:44
+All right, so I'm going to kind of break it down into the what, why, and how.
+
+[Kristina "Kris" Kelpe] 18:19:48
+Um, and so, really, the what is security and financial aid? So…
+
+[Kristina "Kris" Kelpe] 18:19:52
+We… we know that it's really important that all parts of your financial aid data is… are secure, and we, um, have a multitude of options on how we're able to
+
+[Kristina "Kris" Kelpe] 18:20:04
+ensure that all those parts are secure. Um, and…
+
+[Kristina "Kris" Kelpe] 18:20:08
+it's a mixture, really, of, um, what we define on the product side, so what's going on, like, in the back end, as well as your individual security configurations.
+
+[Kristina "Kris" Kelpe] 18:20:18
+And, um, really, what we want to, uh,
+
+[Kristina "Kris" Kelpe] 18:20:22
+kind of make clear is that, yes, there is a multitude of ways that you can, um, secure
+
+[Kristina "Kris" Kelpe] 18:20:29
+your data based on your configuration, but we also have to define what the backend logic
+
+[Kristina "Kris" Kelpe] 18:20:34
+um, is doing so that it can use your configuration and know exactly what to do with that.
+
+[Kristina "Kris" Kelpe] 18:20:40
+that, um, that configuration.
+
+[Kristina "Kris" Kelpe] 18:20:42
+So, what we do on our end is, based on which part of the product we are taking a look at, so whether it be a task, a report, or a web service,
+
+[Kristina "Kris" Kelpe] 18:20:51
+Um, our product team decides how the security can be evaluated.
+
+[Kristina "Kris" Kelpe] 18:20:57
+Which then is, um, utilized by your personal security configuration.
+
+[Kristina "Kris" Kelpe] 18:21:05
+Alright, and so I'm going to talk about role-based security quite a bit throughout this, um, throughout this presentation.
+
+[Kristina "Kris" Kelpe] 18:21:12
+Um, and so, this is kind of a general overview of how, um, you know, the general overview of role-based security within financial aid.
+
+[Kristina "Kris" Kelpe] 18:21:20
+So, um, within financial aid, we have the ability to use the academic unit hierarchy.
+
+[Kristina "Kris" Kelpe] 18:21:26
+In order to define where your role is placed.
+
+[Kristina "Kris" Kelpe] 18:21:29
+And what that really does is, um, it makes sure that within an institution, um, you will have access to different levels throughout the institution. Those could be subject matters, it could be grade levels,
+
+[Kristina "Kris" Kelpe] 18:21:40
+Um, it gives you that flexibility to kind of define what roles should be seeing which parts of an institution.
+
+[Kristina "Kris" Kelpe] 18:21:46
+And so, we use this, um, because we know that, uh, institutions will have a multitude of different levels, right? So we might have, you know, the School of Business versus the School of Arts and Sciences,
+
+[Kristina "Kris" Kelpe] 18:21:58
+Um, but those all roll up to the institution and its… in its whole.
+
+[Kristina "Kris" Kelpe] 18:22:04
+And so… I'm gonna go ahead, and this is an example of what the academic unit hierarchy looks like. So, as you can see right here, we have
+
+[Kristina "Kris" Kelpe] 18:22:11
+the institution, which is AMU in this example. And then we have what we call, uh, Academic Unit Configurations.
+
+[Kristina "Kris" Kelpe] 18:22:19
+Um, which, in this case, we can… you can see right here, there's the Institutional Academic Unit of Alma Made University, um, undergrad would be the academic level.
+
+[Kristina "Kris" Kelpe] 18:22:29
+And then we could see that there's another academic unit configuration, that would be AMU University.
+
+[Kristina "Kris" Kelpe] 18:22:35
+Um, at the graduate level. And then beneath that, we have even more subordinate, um, AUs, which, in this case would be the School of Business and the School of Engineering.
+
+[Kristina "Kris" Kelpe] 18:22:45
+And you can actually configure, um, beneath that, uh,
+
+[Kristina "Kris" Kelpe] 18:22:49
+even more granular would be the School of Business undergrad versus the School of Engineering, um, maybe the master's program there.
+
+[Kristina "Kris" Kelpe] 18:22:57
+And so, in this case, um, this is an example of really where you could have roles assigned, and this would define
+
+[Kristina "Kris" Kelpe] 18:23:04
+Uh, what parts of the university that particular role could see.
+
+[Kristina "Kris" Kelpe] 18:23:10
+So, there are a few different ways, um, that we allow our product to reflect.
+
+[Kristina "Kris" Kelpe] 18:23:18
+what… what your role with the security configuration shows. So it's not really just where you have your role assignment in the AU hierarchy, but we also have additional configuration that would be domain security or business process security.
+
+[Kristina "Kris" Kelpe] 18:23:30
+And that would also define the areas within the financial aid product that your roles are able to see.
+
+[Kristina "Kris" Kelpe] 18:23:37
+So really, we want to make sure that there's, you know, a multitude of layers that will allow you to have the most granular, um,
+
+[Kristina "Kris" Kelpe] 18:23:45
+security that you could potentially configure.
+
+[Kristina "Kris" Kelpe] 18:23:49
+So, as far as how we group, um, financial aid security together,
+
+[Kristina "Kris" Kelpe] 18:23:55
+So, there's some… there are some tasks that are pretty straightforward in the sense that we define directly on the task, and you can see this… there's an example below, this, uh, view need packaging strategy.
+
+[Kristina "Kris" Kelpe] 18:24:05
+Uh, you can see that there's an academic unit and academic level that's directly on the task itself.
+
+[Kristina "Kris" Kelpe] 18:24:11
+Um, and that would… that… essentially what that is saying is, if you have domain security to see the view need packaging strategy, and you are assigned to the College of Engineering and Graduate
+
+[Kristina "Kris" Kelpe] 18:24:22
+academic unit configuration, as far as your role-based security goes, then you should be able to view this need packaging strategy here.
+
+[Kristina "Kris" Kelpe] 18:24:30
+So, this one's straightforward because you can see what the academic and unit level
+
+[Kristina "Kris" Kelpe] 18:24:36
+are directly on the task, this is one of the examples of what you can see, um,
+
+[Kristina "Kris" Kelpe] 18:24:41
+Security-wise and financial aid.
+
+[Kristina "Kris" Kelpe] 18:24:43
+However, there are some… some tasks, or I guess, areas within financial aid
+
+[Kristina "Kris" Kelpe] 18:24:48
+that it's a little bit less straightforward, so we may not actually define the academic unit or academic level directly on the task.
+
+[Kristina "Kris" Kelpe] 18:24:54
+And those are the cases where our product team is able to define, you know, what things should be grouped together in order to be able to
+
+[Kristina "Kris" Kelpe] 18:25:02
+you know, define security in that area. So we use a couple different areas, um, commonly to kind of group these tasks together within financial aid.
+
+[Kristina "Kris" Kelpe] 18:25:13
+Um, and those areas are the financial aid record, the financial aid period record, federal school code, and student recruitment.
+
+[Kristina "Kris" Kelpe] 18:25:19
+And I guess, like, the background on why we kind of use these areas is because they're really…
+
+[Kristina "Kris" Kelpe] 18:25:24
+Um, the larger areas that sort of define, um, what it really means, uh, as far as, like, items within financial aid.
+
+[Kristina "Kris" Kelpe] 18:25:32
+And from these… from these areas, um, you can actually… we can find the academic unit and academic level.
+
+[Kristina "Kris" Kelpe] 18:25:39
+that is assigned to these particular… either… whether it be the financial aid record or the financial aid period record.
+
+[Kristina "Kris" Kelpe] 18:25:44
+There is context of academic unit and level within these,
+
+[Kristina "Kris" Kelpe] 18:25:48
+And so, we use these areas in order to attach other areas that may not have that context of academic unit and level directly on it.
+
+[Kristina "Kris" Kelpe] 18:25:56
+And I'll kind of get into what I mean by that a little bit later in this presentation.
+
+[Kristina "Kris" Kelpe] 18:26:03
+So, an example of where, um, a task that we derive security from the financial aid
+
+[Kristina "Kris" Kelpe] 18:26:09
+carried record is view total financial assistance.
+
+[Kristina "Kris" Kelpe] 18:26:12
+So, what that means is if you have a student that, um, the financial aid period record,
+
+[Kristina "Kris" Kelpe] 18:26:18
+is, um, within an academic record that rolls up to, for example, the School of Business.
+
+[Kristina "Kris" Kelpe] 18:26:23
+then that would mean that if you have a role assignment on the, um, the School of Business Academic Unit,
+
+[Kristina "Kris" Kelpe] 18:26:30
+then you should be able to not only see the student's financial aid period record, but that would inherently give you security to the View Total Financial Assistance task if your domain permissions allowed it.
+
+[Kristina "Kris" Kelpe] 18:26:42
+So the next…
+
+[Kristina "Kris" Kelpe] 18:26:43
+portion is, um, you know, as a product team, we have to decide when these security items should be evaluated.
+
+[Kristina "Kris" Kelpe] 18:26:51
+Um, and so, in this case, um, we had these groupings, so, you know, financial aid record and financial aid period record, um, as I defined before.
+
+[Kristina "Kris" Kelpe] 18:26:59
+But what action should have to take place in order for that security to be re-evaluated?
+
+[Kristina "Kris" Kelpe] 18:27:05
+And so, there's a multitude of different actions that, um, we can take a look at, but we're able to actually define
+
+[Kristina "Kris" Kelpe] 18:27:13
+what… what things need to take place in order for that, um, security
+
+[Kristina "Kris" Kelpe] 18:27:17
+evaluation to happen.
+
+[Kristina "Kris" Kelpe] 18:27:23
+So, I'm gonna go ahead and get into a more concrete example, and so this one's going to be specifically talking about the financial aid record and the financial aid period record.
+
+[Kristina "Kris" Kelpe] 18:27:37
+All right, so the use case here. So, so, for example, on the date that a reporting record change is effective, we need to make sure that the roles that have security access to the financial aid record and financial aid period record are re-evaluated.
+
+[Kristina "Kris" Kelpe] 18:27:49
+So, this is an example of the when we want to evaluate security.
+
+[Kristina "Kris" Kelpe] 18:27:55
+Um, and so…
+
+[Kristina "Kris" Kelpe] 18:27:57
+What we're doing, um, starting in 23R1, is that once the attendance plan is refreshed,
+
+[Kristina "Kris" Kelpe] 18:28:03
+Roles that have security access to the financially period record and the financial aid record are updated within that job to reflect the role assignments on the academic unit and level of the current financial aid period record.
+
+[Kristina "Kris" Kelpe] 18:28:19
+So you might be wondering, why is a reporting record change so, um, important for security?
+
+[Kristina "Kris" Kelpe] 18:28:24
+So, we decided that a reporting record change is a kind of a defining moment in financial aid that says, hey,
+
+[Kristina "Kris" Kelpe] 18:28:31
+We need to take a look at these, um, role assignments and make sure that this reporting record actually rolls up to the correct academic unit and level.
+
+[Kristina "Kris" Kelpe] 18:28:39
+Um, and so, you know, when a reporting record change happens, that means that there's also a change in the student's primary program of study.
+
+[Kristina "Kris" Kelpe] 18:28:48
+So, due to this change, the primary program of study might, you know, change the academic unit and level that the student is a part of. So, for example, if you were maybe an art major,
+
+[Kristina "Kris" Kelpe] 18:28:58
+And then you decided to change your program of study to, let's say, I don't know,
+
+[Kristina "Kris" Kelpe] 18:29:04
+uh, marketing. In that case, um, your academic unit and level probably rolls up to a different, um,
+
+[Kristina "Kris" Kelpe] 18:29:11
+or, sorry, your primary program study probably rolls up to a different academic unit and level at that time.
+
+[Kristina "Kris" Kelpe] 18:29:17
+So, what we're doing is, when a reporting record change happens, we choose that moment.
+
+[Kristina "Kris" Kelpe] 18:29:24
+Um, to kind of trigger
+
+[Kristina "Kris" Kelpe] 18:29:27
+Uh, when we should reevaluate security.
+
+[Kristina "Kris" Kelpe] 18:29:29
+However, since, um, the reporting record change is primarily a records task,
+
+[Kristina "Kris" Kelpe] 18:29:34
+Um, we do want to make sure that, um, you know, the re-evaluation of security actually happens, um, when it's triggered by a financial aid, uh, financial aid task, which would be refresh attendance plan.
+
+[Kristina "Kris" Kelpe] 18:29:49
+And I'll go ahead and go through some example scenarios.
+
+[Kristina "Kris" Kelpe] 18:29:54
+This will show, from a financial aid perspective,
+
+[Kristina "Kris" Kelpe] 18:29:57
+Um, what role assignments, um, you know,
+
+[Kristina "Kris" Kelpe] 18:30:00
+have access during certain… certain scenarios of the process of a reporting record change.
+
+[Kristina "Kris" Kelpe] 18:30:10
+So, in this example, um, we'll show roles that have access to the Institutional Academic Unit
+
+[Kristina "Kris" Kelpe] 18:30:15
+Ones that are assigned to the academic unit.
+
+[Kristina "Kris" Kelpe] 18:30:18
+And then roles that are also assigned to the academic unit and level configuration.
+
+[Kristina "Kris" Kelpe] 18:30:22
+So, you'll be able to see, as the timeline of these examples go on,
+
+[Kristina "Kris" Kelpe] 18:30:27
+how the security changes for each of these levels of role assignments.
+
+[Kristina "Kris" Kelpe] 18:30:31
+All right, so Scenario 1. So we have a student that is a business major, and, uh, which is within the School of Business, AU,
+
+[Kristina "Kris" Kelpe] 18:30:39
+And as an undergraduate academic level. They decide that they never should have been a business major and want to backdate a reporting record change.
+
+[Kristina "Kris" Kelpe] 18:30:45
+Um, to major in Liberal Arts.
+
+[Kristina "Kris" Kelpe] 18:30:47
+within the School of Arts and Sciences, and also in undergraduate.
+
+[Kristina "Kris" Kelpe] 18:30:52
+So, in this case, you can see that, you know, the students had… the standard start date of the academic period would be July 1st.
+
+[Kristina "Kris" Kelpe] 18:30:59
+Um, at this time, the student is a business major, right? So the roles that have access would be any roles on the institution,
+
+[Kristina "Kris" Kelpe] 18:31:06
+the roles that are assigned to the School of Business, AU, and the roles that are assigned to the School of Business Undergraduate AU configuration.
+
+[Kristina "Kris" Kelpe] 18:31:13
+August 1st rolls around, and the student backdates the reporting record change to happen on July 1st.
+
+[Kristina "Kris" Kelpe] 18:31:20
+So, in this case, um, the student, because of this change, the student is flagged for attendance plan refresh.
+
+[Kristina "Kris" Kelpe] 18:31:26
+And then when nightly orchestration runs, then attendance plan is refreshed, and the security is re-evaluated for the financial aid record and the financial aid period record.
+
+[Kristina "Kris" Kelpe] 18:31:35
+So then, you know, the morning of August 2nd rolls around, and at this point, the roles that now will have access is, once again, this has not changed, so everyone at the institutions should remain having access.
+
+[Kristina "Kris" Kelpe] 18:31:47
+Anyone with a role on the School of Arts and Sciences will now be able to see the entirety of the student's financial aid record and financial aid period record. And same goes for the AU configuration.
+
+[Kristina "Kris" Kelpe] 18:31:57
+configuration here, so it'll be a change to the School of Arts and Sciences, um, undergrad. So one thing to point out is that on… as soon as this attendance plan refresh happens, the people that lost access to the student would be anyone that has a role in the School of Business,
+
+[Kristina "Kris" Kelpe] 18:32:11
+or the School of Business undergrad AU configuration.
+
+[Kristina "Kris" Kelpe] 18:32:16
+All right, so Scenario 2.
+
+[Kristina "Kris" Kelpe] 18:32:18
+And one thing I do want to point out before I go into this scenario is that, um, within financial aid,
+
+[Kristina "Kris" Kelpe] 18:32:23
+Uh, we don't support, um, mid-period reporting record changes.
+
+[Kristina "Kris" Kelpe] 18:32:28
+So, the reporting record change, even if, you know, so, for example, if a student were to come in midway through the fall period,
+
+[Kristina "Kris" Kelpe] 18:32:36
+And say, hey, I want to change my primary program of study. Uh, that might take place mid-period, but for financial aid, it's not actually effective until the following period, and this
+
+[Kristina "Kris" Kelpe] 18:32:46
+you know, would cause… the reasoning for this is because it could cause a multitude of issues with packaging, and so right now, what… the way that we have it is that the following period, the reporting record change will be effective. Going into this example,
+
+[Kristina "Kris" Kelpe] 18:32:59
+Um, we're gonna say the student is the same business major, and is also an undergraduate, and then they decided that they didn't want to be a business major, and they wanted to make a mid-period reporting record change.
+
+[Kristina "Kris" Kelpe] 18:33:10
+So, same as a loss example, they changed to liberal arts with, um, within the School of Arts and Sciences, and also undergraduate.
+
+[Kristina "Kris" Kelpe] 18:33:17
+Joy.
+
+[Kristina "Kris" Kelpe] 18:33:19
+All right, so in this scenario, you can see that the same, uh, standard start-dated academic period, they have
+
+[Kristina "Kris" Kelpe] 18:33:25
+The roles that have access are the, you know, institution,
+
+[Kristina "Kris" Kelpe] 18:33:29
+the School of Business and the School of Business, um, undergrad, any roles that are assigned to those levels. And then…
+
+[Kristina "Kris" Kelpe] 18:33:35
+we could see 10-1 rolls around, and the student wants to make that future-dated reporting record change.
+
+[Kristina "Kris" Kelpe] 18:33:40
+So, once again, this reporting record change might happen, uh, 10-1, but it won't be effective for, uh, financial aid until January 1st.
+
+[Kristina "Kris" Kelpe] 18:33:50
+the standards start to date at the next period.
+
+[Kristina "Kris" Kelpe] 18:33:53
+So, at that point, um, you know, the student might be flagged to refresh attendance plan,
+
+[Kristina "Kris" Kelpe] 18:34:00
+An attendance plan run during nightly orchestration, but because the current financial aid period record
+
+[Kristina "Kris" Kelpe] 18:34:05
+is still, um, you know, rolls up to the School of Business and, uh, undergrad.
+
+[Kristina "Kris" Kelpe] 18:34:11
+the security will be re-evaluated at that point, but it will stay the same. So, at this point, um, it's still that current period and that fall period, and so once again, at the institution, you'll have access, School of Business rule, you'll have access, as well as the School of Business undergrad.
+
+[Kristina "Kris" Kelpe] 18:34:26
+And then we have the standard start date of the next period, so that comes around January 1st. Um, at that point,
+
+[Kristina "Kris" Kelpe] 18:34:32
+it'll be the same. So, any roles that have access prior will be, um, will still remain having access. And this is because the attendance plan has not run.
+
+[Kristina "Kris" Kelpe] 18:34:42
+So regardless of the fact that the, you know, effective date of the reporting record changes,
+
+[Kristina "Kris" Kelpe] 18:34:48
+has now, uh, passed.
+
+[Kristina "Kris" Kelpe] 18:34:50
+We still need to rely on the attendance plan job to go through and refresh the, uh, the security.
+
+[Kristina "Kris" Kelpe] 18:34:57
+for this financial aid record. And so…
+
+[Kristina "Kris" Kelpe] 18:35:01
+What we're gonna do is we're gonna have the admin manually refresh the students, um, for the attendance plan.
+
+[Kristina "Kris" Kelpe] 18:35:07
+And then at that point in time, that's when their, um, security will be re-evaluated.
+
+[Kristina "Kris" Kelpe] 18:35:12
+So, as you can see, after that attendance plan refresh happens,
+
+[Kristina "Kris" Kelpe] 18:35:16
+Um, immediately after, this will… this will take away the access to anyone that's in the School of Business.
+
+[Kristina "Kris" Kelpe] 18:35:23
+And the new Access for the financial aid record and the financial aid period record will be the institutional roles,
+
+[Kristina "Kris" Kelpe] 18:35:29
+The roles on the School of Arts and Sciences, as well as the… as well as the roles in the School of Arts and Sciences undergrad.
+
+[Kristina "Kris" Kelpe] 18:35:37
+Alright, so we're going to move on to Scenario 3, which is for multiple institution tenants. Uh, we have a student who's actually a part of, um, two institutions, so one will be Ala Manu University, and then they also have another financial aid record.
+
+[Kristina "Kris" Kelpe] 18:35:48
+at, uh, Freedom University. In Aleman University, they are majoring in the School of Business, and they're also an undergraduate. And then in Freedom University, they are within the School of Arts and Sciences, also an undergraduate.
+
+[Kristina "Kris" Kelpe] 18:36:02
+Um, at Freedom University, they are going to actually backdate a reporting record change to the School of Engineering and Undergraduate, um, academic level, so I'm going to go ahead and show you what that looks like when the student is in a multi-institution tenant.
+
+[Kristina "Kris" Kelpe] 18:36:20
+All right, so as you can see, um, it looks similar to the previous examples, except where you can see what it looks like for when they have two financial aid records.
+
+[Kristina "Kris" Kelpe] 18:36:28
+So, let's just say their standard start date of the academic period for both institutions is July 1st. So, in this case, we're going to have two records. So, um, they're going to act as if they're a completely separate tenants themselves. So if you are assigned a role within AMU,
+
+[Kristina "Kris" Kelpe] 18:36:44
+You would be able to see the student's financial aid record for, um, their school of business. So, the people within
+
+[Kristina "Kris" Kelpe] 18:36:52
+Um, Alamani University, who would have access, are anyone secured at the institutional level, anyone secured to the School of Business, AU, and also anyone secured at the School of Business, undergraduate, AU configuration.
+
+[Kristina "Kris" Kelpe] 18:37:06
+And then, if you had a role within Freedom University, you would be able to see the student's financial aid record. Um, if you were secured at the institutional level, which would be at Freedom University,
+
+[Kristina "Kris" Kelpe] 18:37:19
+or School of Arts and Sciences, AU. Additionally, School of Arts and Sciences, um, AU, um, Config.
+
+[Kristina "Kris" Kelpe] 18:37:28
+So, in this case, we're going to say that the student backdates a reporting record change within Freedom University, and they're going to actually switch to be an undergraduate at the School of Engineering.
+
+[Kristina "Kris" Kelpe] 18:37:39
+So what would happen is that that backdated reporting record change, um, you know,
+
+[Kristina "Kris" Kelpe] 18:37:43
+Went back and happened at… on July 1st. The student would be flagged for their attendance plan to be refreshed, and just a reminder, their attendance plan within Freedom University is going to be the only one that's flagged, so we wouldn't flag their attendance plan at
+
+[Kristina "Kris" Kelpe] 18:37:57
+Alaman University.
+
+[Kristina "Kris" Kelpe] 18:37:59
+that… that financial aid record will be refreshed,
+
+[Kristina "Kris" Kelpe] 18:38:03
+And then, um, what will happen from then, uh,
+
+[Kristina "Kris" Kelpe] 18:38:06
+is that the security at Alaman University would not be re-evaluated, because once again, their financial aid record would not be affected at Olamana University. Only the record within Freedom University. So, in this case, the roles that would have access at alma mater remain the same.
+
+[Kristina "Kris" Kelpe] 18:38:25
+But at Freedom University, what would happen is that's where the roles would get re-evaluated according to their reporting record change.
+
+[Kristina "Kris" Kelpe] 18:38:32
+So, while they used to, um, have access at the School of Arts and Sciences and the School of Arts and Sciences undergrad,
+
+[Kristina "Kris" Kelpe] 18:38:40
+Now we have an, uh… after the reporting record change, as well as after the attendance plan refresh.
+
+[Kristina "Kris" Kelpe] 18:38:47
+is now anyone with a role on the School of Engineering AU or School of Engineering Undergraduate AU Config would have access to the student.
+
+[Kristina "Kris" Kelpe] 18:38:58
+All right, so next we're going to talk about security inheritance.
+
+[Kristina "Kris" Kelpe] 18:39:01
+And this is what I meant by earlier talking about security groupings. These are going to be the tasks, web services, and anything related to the financial aid record and financial aid period record.
+
+[Kristina "Kris" Kelpe] 18:39:16
+So, once again, there's many areas that we group with financial aid record and financial aid period record, and the reason that we do this is because those areas are closely related, and we want their security to be re-evaluated and assigned the same way that the financial aid record and financial aid period record
+
+[Kristina "Kris" Kelpe] 18:39:32
+So that means that when the attendance plan refresh happens, not only will the financial aid record and financial aid period record have a change of security, but so will all the associated areas.
+
+[Kristina "Kris" Kelpe] 18:39:44
+And so I'll give a brief overview, um, of what areas inherit security from the financial aid record.
+
+[Kristina "Kris" Kelpe] 18:39:52
+Not gonna go through and list all of these areas, but here are the miscellaneous areas that are specifically grabbing security from the financial aid record.
+
+[Kristina "Kris" Kelpe] 18:40:01
+And then, I'll go through the areas that inherit security from the financial aid period record.
+
+[Kristina "Kris" Kelpe] 18:40:07
+Most areas within packaging and disbursement.
+
+[Kristina "Kris" Kelpe] 18:40:10
+Additionally, most areas within Total Financial Assistance
+
+[Kristina "Kris" Kelpe] 18:40:14
+As well as COD and other miscellaneouses.
+
+[Kristina "Kris" Kelpe] 18:40:18
+All right, so next I'm going to go into some role-based security recommendations.
+
+[Kristina "Kris" Kelpe] 18:40:25
+So once again, I want to reiterate that there are many different ways that you can configure your security within Workday, and these are truly just a few basic recommendations. So, keep in mind that
+
+[Kristina "Kris" Kelpe] 18:40:38
+There's a lot that you could do with security, and I'm not going to tell you every single way that you can do it. However, these are just basic, um, basic recommendations that I think would be relevant for financial aid.
+
+[Kristina "Kris" Kelpe] 18:40:48
+All right, so if you have a role on the Institutional Academic Unit, what this means is that you would like to have access
+
+[Kristina "Kris" Kelpe] 18:40:55
+to all students within your institution at all times, depending on, obviously, your domain, MVP security policy configuration. So that means that anytime a, um, attendance plan refresh happens,
+
+[Kristina "Kris" Kelpe] 18:41:09
+Nothing should really change for you, so that means you're typically someone who has access to all students,
+
+[Kristina "Kris" Kelpe] 18:41:16
+you maybe, um, don't need additional granularity within your security, and so you just decide to have a role on the institution.
+
+[Kristina "Kris" Kelpe] 18:41:24
+The next level of granularity would be a role on the subordinate academic unit, and this would be, like, an example of a subordinate academic unit would be, uh, the School of Business. So, in this case, um, you might have an institution that
+
+[Kristina "Kris" Kelpe] 18:41:38
+Maybe you have a really large, um, school of business, and so you have, um, specific
+
+[Kristina "Kris" Kelpe] 18:41:43
+financial aid administrators that work only on the students within the School of Business.
+
+[Kristina "Kris" Kelpe] 18:41:49
+In this case, what you can do is you can have a role on that subordinate academic unit, which allows you just to see the, um, students within the school… the student's financial aid within the school of business, and so you'd be able to edit, view, and modify any of those
+
+[Kristina "Kris" Kelpe] 18:42:04
+Those items that your domain security permissions allow. And if you want even more additional granularity, you can have a role of the academic unit configuration, which would be a combination of the academic unit and academic level.
+
+[Kristina "Kris" Kelpe] 18:42:18
+This example could be the School of Business and graduate students. You might have…
+
+[Kristina "Kris" Kelpe] 18:42:23
+Um, you know, a different financial aid office that handles graduate students, and once again, maybe your school of business has a large subset of students, and so you just want
+
+[Kristina "Kris" Kelpe] 18:42:32
+Um, a certain subset of financial aid admins working on these students.
+
+[Kristina "Kris" Kelpe] 18:42:37
+In this case, um, it really limits the amount of students that you're able to see. So, whenever you have a student that has… that rolls up to the School of Business and is a graduate student,
+
+[Kristina "Kris" Kelpe] 18:42:47
+You'll be able to control just their financial aid and not be able to see any, um, any other students outside of this academic unit and level configuration.
+
+[Kristina "Kris" Kelpe] 18:42:57
+I do want to mention, because I do think that there's many financial aid departments that prefer more flexibility in the students that they can view versus the students they can modify.
+
+[Kristina "Kris" Kelpe] 18:43:07
+I've heard a couple use cases of, uh, you know,
+
+[Kristina "Kris" Kelpe] 18:43:11
+admins wanting to be able to view students across, you know, multiple academic units and levels.
+
+[Kristina "Kris" Kelpe] 18:43:16
+But potentially only be able… being able to modify students at a certain period of time within their financial aid journey.
+
+[Kristina "Kris" Kelpe] 18:43:23
+Um, in this case, you can actually have, um, multiple roles.
+
+[Kristina "Kris" Kelpe] 18:43:28
+that are configured on the domain security policy. So, for example, as you can see here,
+
+[Kristina "Kris" Kelpe] 18:43:34
+You can see that in the domain security policy, that there are, um, you know, financial aid administrators that can, you know, just view
+
+[Kristina "Kris" Kelpe] 18:43:43
+view those, uh, data within this domain?
+
+[Kristina "Kris" Kelpe] 18:43:46
+And then, same with, uh, financial aid administrators that can actually view and modify.
+
+[Kristina "Kris" Kelpe] 18:43:51
+So, in this example, these two might be actually separate roles,
+
+[Kristina "Kris" Kelpe] 18:43:55
+And essentially, the people that are assigned to those roles can do, um… you can have differences in what they can
+
+[Kristina "Kris" Kelpe] 18:44:02
+view, or view and modify. So what we would recommend for most of these use cases is that if you want the flexibility,
+
+[Kristina "Kris" Kelpe] 18:44:10
+And be able to view students across this institution.
+
+[Kristina "Kris" Kelpe] 18:44:13
+but modify students within only maybe an academic unit configuration.
+
+[Kristina "Kris" Kelpe] 18:44:18
+Uh, we would recommend having, uh, two different roles set up for that.
+
+[Kristina "Kris" Kelpe] 18:44:23
+that particular person. So, yeah, in this example, again, um, if you… if you want, um, just view access on the institutional, um, academic unit,
+
+[Kristina "Kris" Kelpe] 18:44:33
+It's, uh, advised to create roles that would just be secured to the Institutional Academic Unit, and only configured them on a domain and BP security policies to view. Uh, you want the granularity just for modifying data,
+
+[Kristina "Kris" Kelpe] 18:44:46
+then you can configure an additional role that will, um, be placed in the domain security policy for view and modify.
+
+[Kristina "Kris" Kelpe] 18:44:55
+So just a more functional example for this. So, in this example, there's a financial aid department that's at Alma Made University, but they have an office for undergrad students and a different office for
+
+[Kristina "Kris" Kelpe] 18:45:08
+graduate students. So, the, um, the office at the graduate, uh, department wants to make sure that they can see the… their students
+
+[Kristina "Kris" Kelpe] 18:45:18
+total financial aid assistance history over the course of time, and so they're actually going to have a role that gives them view access to be able to see everything that happened in the student's undergrad.
+
+[Kristina "Kris" Kelpe] 18:45:28
+But they're… they'll have a secondary role that will be placed in the domain security
+
+[Kristina "Kris" Kelpe] 18:45:33
+security policy for Modify that would just be configured at alma mater,
+
+[Kristina "Kris" Kelpe] 18:45:39
+graduate AU configuration, and what this does is it allows them to always view the student's financial aid across their…
+
+[Kristina "Kris" Kelpe] 18:45:45
+totality of the time, but then just modify the data that's relevant to graduate.
+
+[Kristina "Kris" Kelpe] 18:45:51
+And this is just a brief overview of, you know, the additional configuration that you can have on role-based security.
+
+[Kristina "Kris" Kelpe] 18:45:57
+I'm not going to really spend much time on this, but I do want to really point out that there is
+
+[Kristina "Kris" Kelpe] 18:46:02
+more configuration that can be had with role-based security, and it's not just the, uh, the items that I mentioned within this presentation.
+
+[Kristina "Kris" Kelpe] 18:46:10
+All right, thank you everyone for listening to the security overview.
+
