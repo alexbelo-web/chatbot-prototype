@@ -56,23 +56,28 @@ async function loadDocuments() {
 }
 
 function getRelevantDocs(query, documents, topN = 3) {
-  const queryLower = query.toLowerCase();
-  const queryWords = queryLower.split(/\s+/).filter(w => w.length > 3);
+  const stopWords = new Set(['workday', 'student', 'walk', 'through', 'does', 'what', 'with', 'that', 'this', 'from', 'have', 'your', 'into', 'will', 'about', 'create', 'using', 'their', 'they', 'when', 'which']);
+const queryWords = query.toLowerCase().split(/\s+/).filter(w => w.length > 3 && !stopWords.has(w));
 
   const scored = documents.map(doc => {
-    const nameLower = doc.name.toLowerCase()
+    // Clean the filename for better matching
+    const cleanedName = doc.name.toLowerCase()
       .replace(/copy of /g, '')
-      .replace(/wcu_/g, '')
-      .replace(/[_\-\.]/g, ' ');
+      .replace(/wcu_stu_reg[-_]/gi, '')
+      .replace(/wcu_stu[-_]/gi, '')
+      .replace(/wcu_fac_reg[-_]/gi, '')
+      .replace(/wcu_fac[-_]/gi, '')
+      .replace(/wcu_admin[-_]/gi, '')
+      .replace(/wcu_/gi, '')
+      .replace(/[-_]/g, ' ')
+      .replace(/\.docx|\.txt|\.pdf/g, '');
+
     const contentLower = doc.content.toLowerCase();
 
-    // Exact phrase match in filename — strongest signal
     let score = 0;
     queryWords.forEach(word => {
-      // Check 4-letter stem against cleaned filename
-      const stem = word.slice(0, 4);
-      if (nameLower.includes(stem)) score += 300;
-      // Content match counts less
+      const stem = word.slice(0, 6);
+      if (cleanedName.includes(stem)) score += 300;
       const contentMatches = (contentLower.match(new RegExp(stem, 'g')) || []).length;
       score += Math.min(contentMatches, 10);
     });
@@ -90,12 +95,12 @@ let allDocuments = [];
 
 const systemPrompt = `You are the Legato Knowledge Assistant, an internal tool for Legato Strategic Consulting.
 
-CRITICAL INSTRUCTION: You MUST use the document content provided below to answer questions. If a document contains relevant information, you MUST use it and cite the filename. Do NOT fall back to general knowledge if the documents contain relevant content. Read every word of the provided documents before deciding they don't contain the answer.
+CRITICAL INSTRUCTION: You MUST use the document content provided below to answer questions. If a document contains relevant information, you MUST use it and cite the filename.  Read every word of the provided documents before deciding they don't contain the answer.
 
 Rules:
 - Read ALL provided documents carefully
 - If ANY document contains relevant information, use it and cite the source filename
-- Only say "not in documents" if you have read all provided content and found nothing relevant
+- If the documents do NOT cover the topic, answer using your general Workday Student and higher education consulting knowledge, but begin your response with: "This isn't covered in Legato's internal documents, but based on general Workday knowledge:"
 - Be clear, concise, and helpful
 - This tool is for internal use only`;
 
@@ -105,7 +110,23 @@ app.post('/chat', async (req, res) => {
   try {
     const relevantDocs = getRelevantDocs(message, allDocuments);
     const docContext = relevantDocs.length > 0
-      ? relevantDocs.slice(0, 2).map(d => `--- SOURCE: ${d.name} ---\n${d.content.slice(0, 800)}`).join('\n\n')
+      ? relevantDocs.slice(0, 1).map(d => {
+  const content = d.content;
+  const queryLower = message.toLowerCase();
+  const words = queryLower.split(/\s+/).filter(w => w.length > 4);
+  
+  // Find the best starting position within the doc
+  let bestPos = 0;
+  let bestScore = 0;
+  for (let i = 0; i < content.length - 500; i += 200) {
+    const chunk = content.slice(i, i + 500).toLowerCase();
+    const score = words.reduce((acc, w) => acc + (chunk.includes(w.slice(0,4)) ? 1 : 0), 0);
+    if (score > bestScore) { bestScore = score; bestPos = i; }
+  }
+  
+  const start = Math.max(0, bestPos - 200);
+  return `--- SOURCE: ${d.name} ---\n${content.slice(start, start + 3000)}`;
+}).join('\n\n')
       : 'No specific documents found. Use general Workday knowledge.';
 
     const messages = [
