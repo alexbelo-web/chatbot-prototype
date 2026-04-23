@@ -5,84 +5,327 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Legato Knowledge Assistant</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; height: 100vh; display: flex; flex-direction: column; }
-    #header { background: #1a3a5c; color: white; padding: 16px 24px; text-align: center; }
-    #header h1 { font-size: 22px; font-weight: 600; }
-    #header p { font-size: 13px; opacity: 0.8; margin-top: 4px; }
-    #chat { flex: 1; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 16px; }
-    .message { max-width: 75%; padding: 12px 16px; border-radius: 12px; line-height: 1.5; font-size: 14px; white-space: pre-wrap; }
-    .user { background: #1a3a5c; color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
-    .bot { background: white; color: #333; align-self: flex-start; border-bottom-left-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-    #input-area { background: white; border-top: 1px solid #e0e0e0; padding: 16px 24px; display: flex; gap: 12px; }
-    #input { flex: 1; padding: 12px 16px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; resize: none; font-family: inherit; }
-    #input:focus { border-color: #1a3a5c; }
-    #send { background: #1a3a5c; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: 500; }
-    #send:hover { background: #15304d; }
-    #send:disabled { background: #ccc; cursor: not-allowed; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f0f2f5;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #header {
+      width: 100%;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+
+    #header-left {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #header h1 {
+      font-size: 22px;
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: 0.3px;
+    }
+
+    #header p {
+      font-size: 12px;
+      color: rgba(255,255,255,0.55);
+      margin-top: 3px;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    #status-dot {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    #status-dot::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: #4ade80;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 6px #4ade80;
+    }
+
+    #wrapper {
+      width: 100%;
+      max-width: 860px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 24px 20px 0;
+      overflow: hidden;
+    }
+
+    #chat {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-right: 4px;
+      padding-bottom: 16px;
+    }
+
+    #chat::-webkit-scrollbar { width: 4px; }
+    #chat::-webkit-scrollbar-track { background: transparent; }
+    #chat::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+
+    .message {
+      max-width: 80%;
+      padding: 14px 18px;
+      border-radius: 16px;
+      font-size: 14px;
+      line-height: 1.65;
+      animation: fadeIn 0.25s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .message.user {
+      align-self: flex-end;
+      background: linear-gradient(135deg, #0f3460, #1a1a2e);
+      color: #ffffff;
+      border-bottom-right-radius: 4px;
+      box-shadow: 0 2px 12px rgba(15,52,96,0.3);
+      max-width: 60%;
+    }
+
+    .message.bot {
+      align-self: stretch;
+      background: #ffffff;
+      color: #1e293b;
+      border-bottom-left-radius: 4px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      max-width: 100%;
+    }
+
+    .message.bot strong {
+      color: #0f3460;
+      font-weight: 600;
+    }
+
+    .message.bot em {
+      color: #64748b;
+      font-style: italic;
+    }
+
+    #input-area {
+      width: 100%;
+      max-width: 860px;
+      padding: 16px 20px 24px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+    }
+
+    #input {
+      flex: 1;
+      padding: 14px 18px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      resize: none;
+      outline: none;
+      background: #ffffff;
+      color: #1e293b;
+      line-height: 1.5;
+      max-height: 120px;
+      transition: border-color 0.2s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+
+    #input:focus { border-color: #0f3460; }
+
+    #input::placeholder { color: #94a3b8; }
+
+    #send {
+      padding: 14px 24px;
+      background: linear-gradient(135deg, #0f3460, #1a1a2e);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+      white-space: nowrap;
+      box-shadow: 0 2px 12px rgba(15,52,96,0.3);
+    }
+
+    #send:hover { opacity: 0.88; transform: translateY(-1px); }
+    #send:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+    .welcome {
+      align-self: center;
+      text-align: center;
+      padding: 32px 24px;
+      color: #64748b;
+    }
+
+    .welcome h2 {
+      font-size: 18px;
+      font-weight: 500;
+      color: #1e293b;
+      margin-bottom: 8px;
+    }
+
+    .welcome p {
+      font-size: 13px;
+      line-height: 1.6;
+      max-width: 560px;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    .suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
+    .suggestion {
+      padding: 8px 14px;
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 20px;
+      font-size: 12px;
+      color: #0f3460;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .suggestion:hover {
+      background: #0f3460;
+      color: white;
+      border-color: #0f3460;
+    }
   </style>
 </head>
 <body>
+
   <div id="header">
-    <h1>Legato Knowledge Assistant</h1>
-    <p>Internal tool — Workday Student reference & consulting knowledge base</p>
+    <div id="header-left">
+      <h1>Legato Knowledge Assistant</h1>
+      <p>Internal tool &nbsp;&bull;&nbsp; Workday Student reference &amp; consulting knowledge base</p>
+    </div>
+    <div id="status-dot">Live</div>
   </div>
-  <div id="chat">
-    <div class="message bot">Hi! I'm the Legato Knowledge Assistant. Ask me anything about Workday Student processes, configurations, or Legato's internal documentation.</div>
+
+  <div id="wrapper">
+    <div id="chat">
+      <div class="welcome">
+        <h2>How can I help you today?</h2>
+        <p>Ask about Workday Student processes, configurations, and Legato's internal docs.</p>
+        <div class="suggestions">
+          <span class="suggestion" onclick="askSuggestion(this)">How does a student add or drop a class?</span>
+          <span class="suggestion" onclick="askSuggestion(this)">What should I watch out for when configuring academic units?</span>
+          <span class="suggestion" onclick="askSuggestion(this)">How does a faculty advisor remove an advisor hold?</span>
+          <span class="suggestion" onclick="askSuggestion(this)">What is Legato's approach to data conversion?</span>
+        </div>
+      </div>
+    </div>
   </div>
+
   <div id="input-area">
     <textarea id="input" placeholder="Ask a Workday question..." rows="1"></textarea>
     <button id="send">Send</button>
   </div>
 
-  <script>
-    const chat = document.getElementById('chat');
-    const input = document.getElementById('input');
-    const sendBtn = document.getElementById('send');
-    const history = [];
+<script>
+  const chat = document.getElementById('chat');
+  const input = document.getElementById('input');
+  const sendBtn = document.getElementById('send');
+  const history = [];
 
-    async function sendMessage() {
-      const message = input.value.trim();
-      if (!message) return;
+  function askSuggestion(el) {
+    input.value = el.textContent;
+    sendMessage();
+  }
 
-      addMessage(message, 'user');
-      input.value = '';
-      sendBtn.disabled = true;
+  async function sendMessage() {
+    const message = input.value.trim();
+    if (!message) return;
 
-      const thinking = addMessage('Thinking...', 'bot');
+    const welcome = chat.querySelector('.welcome');
+    if (welcome) welcome.remove();
 
-      try {
-        const res = await fetch('/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message, history })
-        });
-        const data = await res.json();
-        const reply = data.reply || 'Sorry, something went wrong.';
-        thinking.innerHTML = reply.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>');
-        history.push({ role: 'user', parts: [{ text: message }] });
-        history.push({ role: 'model', parts: [{ text: reply }] });
-      } catch {
-        thinking.textContent = 'Sorry, something went wrong. Try again.';
-      }
+    addMessage(message, 'user');
+    input.value = '';
+    sendBtn.disabled = true;
 
-      sendBtn.disabled = false;
-      chat.scrollTop = chat.scrollHeight;
+    const thinking = addMessage('Thinking...', 'bot');
+
+    try {
+      const res = await fetch('/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message, history })
+      });
+      const data = await res.json();
+      const reply = data.reply || 'Sorry, something went wrong.';
+      thinking.innerHTML = reply
+.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/^\* /gm, '• ')
+        .replace(/\n/g, '<br>');
+      history.push({ role: 'user', parts: [{ text: message }] });
+      history.push({ role: 'model', parts: [{ text: reply }] });
+    } catch {
+      thinking.textContent = 'Sorry, something went wrong. Try again.';
     }
 
-    function addMessage(text, role) {
-      const msg = document.createElement('div');
-      msg.className = `message ${role}`;
-      msg.textContent = text;
-      chat.appendChild(msg);
-      chat.scrollTop = chat.scrollHeight;
-      return msg;
-    }
+    sendBtn.disabled = false;
+    chat.scrollTop = chat.scrollHeight;
+  }
 
-    sendBtn.addEventListener('click', sendMessage);
-    input.addEventListener('keydown', e => {
-      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
-    });
-  </script>
+  function addMessage(text, role) {
+    const msg = document.createElement('div');
+    msg.className = `message ${role}`;
+    msg.textContent = text;
+    chat.appendChild(msg);
+    chat.scrollTop = chat.scrollHeight;
+    return msg;
+  }
+
+  sendBtn.addEventListener('click', sendMessage);
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  });
+
+  input.addEventListener('input', () => {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+  });
+</script>
+
 </body>
 </html>
